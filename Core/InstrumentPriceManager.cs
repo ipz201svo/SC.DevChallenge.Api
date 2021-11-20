@@ -150,8 +150,13 @@ namespace SC.DevChallenge.Api.Core
 
                     datePriceForTimeSlotList.Add(datePrice);
                 }
-                instrumentPriceWithInterval.DatePrice.Price = datePriceForTimeSlotList.Select(dp => dp.Price).Average();
-                instrumentPriceWithInterval.DatePrice.Date = datePriceForTimeSlotList.Select(dp => dp.Date).First();
+                instrumentPriceWithInterval.DatePrice.Price = datePriceForTimeSlotList
+                    .Select(dp => dp.Price)
+                    .Where(p => p != 0)
+                    .Average();
+                instrumentPriceWithInterval.DatePrice.Date = datePriceForTimeSlotList
+                    .Select(dp => dp.Date)
+                    .First();
             }
 
             return instrumentPriceWithIntervalList.Select(ip => ip.DatePrice).ToList();
