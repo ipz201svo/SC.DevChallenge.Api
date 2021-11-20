@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SC.DevChallenge.Api.Core;
 using SC.DevChallenge.Api.Data;
+using SC.DevChallenge.Api.Infrastructure;
 
 namespace SC.DevChallenge.Api
 {
@@ -19,7 +20,10 @@ namespace SC.DevChallenge.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(opts =>
+            {
+                opts.ModelBinderProviders.Insert(0, new CustomDateTimeModelBinderProvider());
+            });
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SC.DevChallenge.Api", Version = "v1" })
             );

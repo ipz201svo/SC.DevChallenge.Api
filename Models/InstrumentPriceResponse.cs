@@ -2,7 +2,7 @@
 
 namespace SC.DevChallenge.Api.Models
 {
-    public class InstrumentAveragePriceResponse
+    public class InstrumentPriceResponse
     {
         public string Date { get; set; }
 
